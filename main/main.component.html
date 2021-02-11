@@ -1,0 +1,186 @@
+<div class="container">
+
+    <div class="form-check form-check-inline" *ngFor="let t of chooseTicketList">
+        <input type="radio" name="ticket" value="{{t}}" (change)="radioChangedHandler($event)">
+        <i>{{t}}</i>
+
+    </div>
+
+    <h2>Ticket list</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Airline</th>
+                <th>One way</th>
+                <th>Depart date</th>
+                <th>Return date</th>
+                <th>From city</th>
+                <th>To city</th>
+                <th>Number of tickets</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let ticket of tickets">
+                <td>{{ ticket.airline.name}}</td>
+                <td>{{ ticket.oneWay }}</td>
+                <td>{{ ticket.departDate}}</td>
+                <td>{{ ticket.returnDate}}</td>
+                <td>{{ ticket.flight.from.name}}</td>
+                <td>{{ ticket.flight.destination.name}}</td>
+                <td>{{ ticket.numberOfTickets}}</td>
+
+            </tr>
+        </tbody>
+
+
+    </table>
+</div>
+
+<div class="container" *ngIf="isAdmin">
+    <div class="row">
+        <!-- create user from-->
+        <div class="col-6" id="block1">
+            <h3>Create User</h3>
+            <form name="userForm" #userForm="ngForm" (ngSubmit)="createUser(userForm)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" id="username" [(ngModel)]="user.username" name="username" required>
+                    <!-- <small *ngIf="username.touched">username required</small> -->
+
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" required>
+
+                </div>
+
+                <div class="form-group">
+                    <label>User Type</label>
+                    <!-- <input type="text" class="form-control" id="type" [(ngModel)]="user.userType" name="type" required> -->
+                    <select name="type" [(ngModel)]="selectedType">
+                    <option *ngFor="let type of types" [value]="type">{{type}}</option>
+             </select>
+                </div>
+
+                <button class="btn btn-success" type="submit" [disabled]="userForm.invalid">Submit</button>
+
+            </form>
+        </div>
+
+        <!--CREATE TICKET-->
+        <div class="col-6" id="block1">
+            <h3>Create Ticket</h3>
+            <form (ngSubmit)="createTicket()">
+                <div class="form-group">
+                    <label>Airline Name</label>
+                    <select [(ngModel)]="selectedAirline" name="airline" (change)="onAirlineChange(selectedAirline)">
+                        <option [ngValue]="airline" *ngFor="let airline of airlines">{{airline.name}} </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Flight</label>
+                    <select [(ngModel)]="selectedFlight" (change)="onFlightChange(selectedFlight)" name="flight">
+                        <option [ngValue]="flight" *ngFor="let flight of flights">{{flight.from.name}} {{flight.destination.name}}</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+                    <input type="text" [(ngModel)]="oneWay" placeholder="one way" name="oneWay">
+
+                </div>
+
+                <div class="form-group">
+                    <label>Depart Date</label>
+                    <input type="date" [(ngModel)]="ticketToCreate.departDate" name="departDate">
+
+                </div>
+
+                <div class="form-group">
+                    <label>Return Date</label>
+                    <input type="date" [(ngModel)]="ticketToCreate.returnDate" name="returnDate">
+
+                </div>
+
+                <div class="form-group">
+                    <input type="number" [(ngModel)]="ticketToCreate.numberOfTickets" placeholder="number of tickets" name="numberOf">
+
+                </div>
+
+                <button class="btn btn-success" type="submit">Submit</button>
+
+            </form>
+
+        </div>
+
+
+    </div>
+</div>
+
+<div class="container" *ngIf="isUser">
+    <h2>Bookings</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Is Available</th>
+                <th>From City</th>
+                <th>To City</th>
+                <th>Airline</th>
+                <th>One Way</th>
+                <th>Depart Date</th>
+                <th>Return Date</th>
+                <th>Number of tickets</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let booking of bookingList">
+                <td>{{ booking.isAvailable}}</td>
+                <td>{{ booking.flight.from.name }}</td>
+                <td>{{ booking.flight.destination.name}}</td>
+                <td>{{ booking.airlineTicket.airline.name}}</td>
+                <td>{{ booking.airlineTicket.oneWay}}</td>
+                <td>{{ booking.airlineTicket.departDate}}</td>
+                <td>{{ booking.airlineTicket.returnDate}}</td>
+                <td>{{ booking.airlineTicket.numberOfTickets}}</td>
+
+            </tr>
+        </tbody>
+
+
+    </table>
+
+    <form class="form-inline" (ngSubmit)="makeFilter()" name="filter">
+
+        <div class="form-group mx-sm-3 mb-2">
+            <input type="text" class="form-control" id="fromCity" placeholder="From City" [(ngModel)]="bookingFilter.fromCityName" name="fromCity">
+        </div>
+
+        <div class="form-group mx-sm-3 mb-2">
+            <input type="text" class="form-control" id="toCity" placeholder="To City" [(ngModel)]="bookingFilter.toCityName" name="toCity">
+        </div>
+
+        <div class="form-group mx-sm-3 mb-2">
+            <input type="date" class="form-control" id="departDate" placeholder="Depart Date" [(ngModel)]="bookingFilter.departDate" name="departDate">
+        </div>
+
+        <div class="form-group mx-sm-3 mb-2">
+            <input type="date" class="form-control" id="returnDate" placeholder="Return Date" [(ngModel)]="bookingFilter.returnDate" name="returnDate">
+        </div>
+
+        <div class='col-xs-3'>
+            <button class="btn-block btn  btn-success" type="submit">Submit</button>
+            <button class="btn-block btn btn-outline-secondary" type="button" (click)="getBookingsForUser()">All Tickets</button>
+
+        </div>
+    </form>
+
+
+
+
+
+</div>

@@ -1,0 +1,94 @@
+<h2>Iva</h2>
+<div class="container">
+    <div class="form-check form-check-inline" *ngFor="let airline of airlines">
+        <input type="radio" name="airlin" value="{{airline}}" (change)="onItemChange(airline)">
+        <i>{{airline.name}}</i>
+
+    </div>
+
+
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Airline</th>
+                <th>One way</th>
+                <th>Depart date</th>
+                <th>Return date</th>
+                <th>From city</th>
+                <th>To city</th>
+                <th>Number of tickets</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let ticket of tickets">
+                <td>{{ ticket.airline.name}}</td>
+                <td>{{ ticket.oneWay }}</td>
+                <td>{{ ticket.departDate}}</td>
+                <td>{{ ticket.returnDate}}</td>
+                <td>{{ ticket.flight.from.name}}</td>
+                <td>{{ ticket.flight.destination.name}}</td>
+                <td>{{ ticket.numberOfTickets}}</td>
+
+                <div class="row">
+                    <td>
+
+                        <button [disabled]="isUser" (click)="updateTicket(ticket.id)" class="btn btn-info">Update </button>
+                        <button [disabled]="isUser" (click)="deleteTicket(ticket.id)" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+
+
+                    </td>
+                </div>
+
+
+            </tr>
+        </tbody>
+
+
+
+
+    </table>
+
+    <form>
+
+    </form>
+
+    <div class="col-md-9 offset-md-3" *ngIf="isAdmin">
+        <!--<div class="row"> 
+            create user from-->
+        <div class="col-7" id="block1">
+            <h3>Update Airline</h3>
+            <form (ngSubmit)="updateAirline()">
+                <div class="form-group">
+                    <label>Airline Name</label>
+                    <input type="text" class="form-control" id="airline" [(ngModel)]="selectedAirline.name" name="airline" required>
+                </div>
+
+                <button class="btn btn-success" type="submit">Submit</button>
+
+            </form>
+            <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
+        </div>
+    </div>
+
+    <div class="col-md-9 offset-md-3" *ngIf="isAdmin">
+        <!--<div class="row"> 
+            create user from-->
+        <div class="col-7" id="block1">
+            <h3>Create Airline</h3>
+            <form (ngSubmit)="createAirline()">
+                <div class="form-group">
+                    <label>Airline Name</label>
+                    <input type="text" class="form-control" id="airline" [(ngModel)]="newAirline.name" name="airline" required>
+                </div>
+
+                <button class="btn btn-success" type="submit">Submit</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>

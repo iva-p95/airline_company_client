@@ -1,0 +1,55 @@
+<div class="col-md-9 offset-md-3">
+    <!--<div class="row"> 
+        create user from-->
+    <div class="col-7" id="block1">
+        <h3>Update Ticket</h3>
+        <form (ngSubmit)="updateTicket()">
+            <div class="form-group">
+                <label>Airline</label>
+                <input type="text" class="form-control" id="airline" [(ngModel)]="airlineTicket.airline.name" name="airline" required>
+            </div>
+
+            <div class="form-group">
+                <label>One way</label>
+                <input type="text" class="form-control" id="oneWay" [(ngModel)]="airlineTicket.oneWay" name="oneWay" required>
+
+            </div>
+
+
+
+
+            <div class="form-group">
+                <label>Depart Date</label>
+                <input type="date" class="form-control" id="departDate" [(ngModel)]="airlineTicket.departDate" name="departDate" required>
+
+            </div>
+
+            <div class="form-group">
+                <label>Return Date</label>
+                <input type="date" class="form-control" id="returnDate" [(ngModel)]="airlineTicket.returnDate" name="returnDate" required>
+
+            </div>
+
+            <div class="form-group">
+                <label>Flight From</label>
+                <input type="text" class="form-control" id="flightFrom" [(ngModel)]="airlineTicket.flight.from.name" name="flightFrom" required>
+
+            </div>
+
+            <div class="form-group">
+                <label>Flight To</label>
+                <input type="text" class="form-control" id="flightTo" [(ngModel)]="airlineTicket.flight.destination.name" name="flightTo" required>
+
+            </div>
+
+            <div class="form-group">
+                <label>Number Of Tickets</label>
+                <input type="number" class="form-control" id="numberOfTickets" [(ngModel)]="airlineTicket.numberOfTickets" name="numberOfTickets" required>
+
+            </div>
+
+            <button class="btn btn-success" type="submit">Submit</button>
+
+        </form>
+        <button type="button" class="btn btn-secondary" (click)="goToTableList()">Cancel</button>
+    </div>

@@ -1,0 +1,59 @@
+<!--<div class="container"> -->
+
+<h2>Ticket list</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Airline</th>
+            <th>One way</th>
+            <th>Depart date</th>
+            <th>Return date</th>
+            <th>From city</th>
+            <th>To city</th>
+            <th>Number of tickets</th>
+            <th>Actions</th>
+            <th>Make Reservation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ticket of ticketList">
+            <td>{{ticket.airline.name}}</td>
+            <td>{{ticket.oneWay}}</td>
+            <td>{{ticket.departDate}}</td>
+            <td>{{ticket.returnDate}}</td>
+            <td>{{ticket.flight.from.name}}</td>
+            <td>{{ticket.flight.destination.name}}</td>
+            <td>{{ticket.numberOfTickets}}</td>
+            <td>
+
+                <button [disabled]="isUser" (click)="updateTicket(ticket.id)" class="btn btn-info">Update </button>
+                <button [disabled]="isUser" (click)="deleteTicket(ticket.id)" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+
+
+            </td>
+            <td>
+
+                <button [disabled]="isAdmin" (click)="makeReservation(ticket)" class="btn btn-secondary">Reserve</button>
+            </td>
+
+        </tr>
+
+
+
+
+    </tbody>
+</table>
+
+<input *ngIf="isUser" type="text" min="1" [(ngModel)]="numberOfTickets" placeholder="Number of tickets to reserve">
+
+<!-- <nav aria-label="Page navigation example">
+        <ul class="pagination" *ngFor...>
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav> -->
+<!--</div> -->

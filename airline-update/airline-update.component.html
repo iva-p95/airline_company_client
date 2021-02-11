@@ -1,0 +1,17 @@
+<div class="col-md-9 offset-md-3">
+    <!--<div class="row"> 
+        create user from-->
+    <div class="col-7" id="block1">
+        <h3>Update Airline</h3>
+        <form (ngSubmit)="updateAirline()">
+            <div class="form-group">
+                <label>Airline Name</label>
+                <input type="text" class="form-control" id="airline" [(ngModel)]="airline.name" name="airline" required>
+            </div>
+
+            <button class="btn btn-success" type="submit">Submit</button>
+
+        </form>
+        <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
+    </div>
+</div>
